@@ -6,6 +6,7 @@ package Ventanas;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import javax.swing.Icon;
@@ -34,9 +35,13 @@ public class Interfaz2 extends javax.swing.JFrame {
         modelo.addColumn("Metros tela");
         this.tabla.setModel(modelo);
         jLabelResto.setOpaque(true);
-        
+        setIconImage(getIconImage());
     }
-    
+    @Override
+    public Image getIconImage(){
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/cortadora.png"));
+        return retValue;
+    }
     
 
     /**
@@ -237,10 +242,15 @@ public class Interfaz2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldRolloActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        int fila = tabla.getSelectedRow();
+       
         
-        if (fila>=0) {
-            modelo.removeRow(fila);
+        if (tabla.getSelectedRow()>=0) {
+            int respuesta = JOptionPane.showConfirmDialog(this, "Desea eliminar el registro", "Sistema", JOptionPane.INFORMATION_MESSAGE);
+            
+            if (respuesta == JOptionPane.YES_OPTION) {
+                modelo.removeRow(tabla.getSelectedRow());
+                calcularResto();
+            }
             
         }else{
             JOptionPane.showMessageDialog(null, "Selecciona una fila");
@@ -287,7 +297,23 @@ public class Interfaz2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldRestoActionPerformed
 
     private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
-        JOptionPane.showMessageDialog(null, "Enviado a cortadora");
+        
+        double resto = Double.parseDouble(String.valueOf(jTextFieldResto.getText()));
+        if (resto<0) {
+            JOptionPane.showMessageDialog(this, "No se puede enviar a cortadora");
+        }else{
+             JOptionPane.showMessageDialog(null, "Enviado a cortadora");
+             modelo.getDataVector().removeAllElements();;
+             jTextFieldCodigo.setText("");
+             jTextFieldUd.setText("");
+             jTextFieldNombre.setText("");
+             jTextFieldRollo.setText("");
+             jTextFieldTalla.setText("");
+             jTextFieldMetros.setText("");
+             tabla.updateUI();
+        }
+        
+       
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     /**
@@ -341,14 +367,18 @@ public class Interfaz2 extends javax.swing.JFrame {
             double unidades = Double.parseDouble(tabla.getValueAt(i, 1).toString());
             
             resto -= fila*unidades;
-            System.out.println(resto);
+
+            if (resto<0) {
+                JOptionPane.showMessageDialog(this, "No se pueden agregar más prendas");
+          
+            }
         }  
         jTextFieldResto.setText(String.valueOf(resto));
         
-    }   
+    }
     
-
-
+ 
+    
     public  void mostrarImagen(JLabel jLabelFondo, String ruta){
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(this.imagen.getImage().getScaledInstance(jLabelFondo.getWidth(),jLabelFondo.getHeight(), Image.SCALE_DEFAULT));

@@ -18,7 +18,7 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         setIconImage(getIconImage());
-         
+        
     }
     
     @Override
@@ -103,7 +103,9 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarSesionActionPerformed
-        // TODO add your handling code here:
+        Interfaz2 f = new Interfaz2();
+        this.setVisible(false);
+        f.setVisible(true);
     }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
 
     /**
