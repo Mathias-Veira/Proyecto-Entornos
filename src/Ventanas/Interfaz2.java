@@ -4,29 +4,25 @@
  */
 package Ventanas;
 
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.text.DecimalFormat;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Interfaz2 extends javax.swing.JFrame {
 
     public ImageIcon imagen;
     public Icon icono;
     DefaultTableModel modelo;
-    
-    
+
     public Interfaz2() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.mostrarImagen(jLabelFondo, "src/Imagenes/fondo.jpg");
+
         modelo = new DefaultTableModel();
         modelo.addColumn("Código");
         modelo.addColumn("UD.");
@@ -37,12 +33,12 @@ public class Interfaz2 extends javax.swing.JFrame {
         jLabelResto.setOpaque(true);
         setIconImage(getIconImage());
     }
+
     @Override
-    public Image getIconImage(){
+    public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/cortadora.png"));
         return retValue;
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -242,39 +238,37 @@ public class Interfaz2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldRolloActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-       
-        
-        if (tabla.getSelectedRow()>=0) {
+
+        if (tabla.getSelectedRow() >= 0) {
             int respuesta = JOptionPane.showConfirmDialog(this, "Desea eliminar el registro", "Sistema", JOptionPane.INFORMATION_MESSAGE);
-            
+
             if (respuesta == JOptionPane.YES_OPTION) {
                 modelo.removeRow(tabla.getSelectedRow());
                 calcularResto();
             }
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(null, "Selecciona una fila");
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-         String[]datos = new String[5];
-         
-         if (tabla.getRootPane()!=null) {
-        datos[0] = jTextFieldCodigo.getText();
-        datos[1] = jTextFieldUd.getText();
-        datos[2] = jTextFieldNombre.getText();
-        datos[3] = jTextFieldTalla.getText();
-        datos[4] = jTextFieldMetros.getText();
-        
-        
-       modelo.addRow(datos);
-        calcularResto();
-       tabla.setModel(modelo);
-      
+        String[] datos = new String[5];
+
+        if (tabla.getRootPane() != null) {
+            datos[0] = jTextFieldCodigo.getText();
+            datos[1] = jTextFieldUd.getText();
+            datos[2] = jTextFieldNombre.getText();
+            datos[3] = jTextFieldTalla.getText();
+            datos[4] = jTextFieldMetros.getText();
+
+            modelo.addRow(datos);
+            calcularResto();
+            tabla.setModel(modelo);
+
         }
-      
-       
+
+
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
@@ -290,30 +284,28 @@ public class Interfaz2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldMetrosActionPerformed
 
     private void jTextFieldRestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRestoActionPerformed
-         
-         
-         
-       
+
+
     }//GEN-LAST:event_jTextFieldRestoActionPerformed
 
     private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
-        
+
         double resto = Double.parseDouble(String.valueOf(jTextFieldResto.getText()));
-        if (resto<0) {
+        if (resto < 0) {
             JOptionPane.showMessageDialog(this, "No se puede enviar a cortadora");
-        }else{
-             JOptionPane.showMessageDialog(null, "Enviado a cortadora");
-             modelo.getDataVector().removeAllElements();;
-             jTextFieldCodigo.setText("");
-             jTextFieldUd.setText("");
-             jTextFieldNombre.setText("");
-             jTextFieldRollo.setText("");
-             jTextFieldTalla.setText("");
-             jTextFieldMetros.setText("");
-             tabla.updateUI();
+        } else {
+            JOptionPane.showMessageDialog(this, "Enviado a cortadora");
+            modelo.getDataVector().removeAllElements();;
+            jTextFieldCodigo.setText("");
+            jTextFieldUd.setText("");
+            jTextFieldNombre.setText("");
+            jTextFieldRollo.setText("");
+            jTextFieldTalla.setText("");
+            jTextFieldMetros.setText("");
+            tabla.updateUI();
         }
-        
-       
+
+
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     /**
@@ -344,47 +336,37 @@ public class Interfaz2 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Interfaz2().setVisible(true);
             }
         });
-        
-        
-                
-        
-        
-    }
-    
-    public  void calcularResto(){
-        double resto = Double.parseDouble(jTextFieldRollo.getText());
-        double fila = 0;
-        
-        for (int i = 0; i < tabla.getRowCount(); i++) {
-           
-            fila =Double.parseDouble(tabla.getValueAt(i, 4).toString()) ;
-            double unidades = Double.parseDouble(tabla.getValueAt(i, 1).toString());
-            
-            resto -= fila*unidades;
 
-            if (resto<0) {
+    }
+
+    public void calcularResto() {
+        DecimalFormat formato = new DecimalFormat();
+        formato.setMaximumFractionDigits(2);
+        double resto = Double.parseDouble(jTextFieldRollo.getText());
+        double fila;
+
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+
+            fila = Double.parseDouble(tabla.getValueAt(i, 4).toString());
+            double unidades = Double.parseDouble(tabla.getValueAt(i, 1).toString());
+
+            resto -= fila * unidades;
+
+            if (resto < 0) {
                 JOptionPane.showMessageDialog(this, "No se pueden agregar más prendas");
-          
+
             }
-        }  
-        jTextFieldResto.setText(String.valueOf(resto));
-        
+        }
+        jTextFieldResto.setText(String.valueOf(formato.format(resto)));
+
     }
-    
- 
-    
-    public  void mostrarImagen(JLabel jLabelFondo, String ruta){
-        this.imagen = new ImageIcon(ruta);
-        this.icono = new ImageIcon(this.imagen.getImage().getScaledInstance(jLabelFondo.getWidth(),jLabelFondo.getHeight(), Image.SCALE_DEFAULT));
-        jLabelFondo.setIcon(this.icono);
-        this.repaint();
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane JScrollPanel;
@@ -411,8 +393,4 @@ public class Interfaz2 extends javax.swing.JFrame {
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 
-
-
 }
-
-

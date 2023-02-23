@@ -3,8 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Ventanas;
+
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mveir
@@ -18,16 +21,14 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         setIconImage(getIconImage());
-        
+
     }
-    
+
     @Override
-    public Image getIconImage(){
+    public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/cortadora.png"));
         return retValue;
     }
-    
-        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -103,9 +104,16 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarSesionActionPerformed
-        Interfaz2 f = new Interfaz2();
-        this.setVisible(false);
-        f.setVisible(true);
+        Interfaz2 ventana2 = new Interfaz2();
+        String contraseña = new String(jPasswordField1.getPassword());
+
+        if (contraseña.equals("") || jTextFieldUsuario.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Introduce usuario y contraseña");
+        } else {
+            this.setVisible(false);
+            ventana2.setVisible(true);
+        }
+
     }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
 
     /**
