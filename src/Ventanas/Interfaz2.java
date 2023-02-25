@@ -9,10 +9,12 @@ import java.awt.Toolkit;
 import java.text.DecimalFormat;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+/**
+ *
+ * @author Mathias
+ */
 public class Interfaz2 extends javax.swing.JFrame {
 
     public ImageIcon imagen;
@@ -295,7 +297,7 @@ public class Interfaz2 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se puede enviar a cortadora");
         } else {
             JOptionPane.showMessageDialog(this, "Enviado a cortadora");
-            modelo.getDataVector().removeAllElements();;
+            modelo.getDataVector().removeAllElements();
             jTextFieldCodigo.setText("");
             jTextFieldUd.setText("");
             jTextFieldNombre.setText("");
@@ -336,11 +338,8 @@ public class Interfaz2 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Interfaz2().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Interfaz2().setVisible(true);
         });
 
     }
