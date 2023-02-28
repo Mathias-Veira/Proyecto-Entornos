@@ -10,35 +10,37 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author mathias
+ * @author Mathias
  */
-public class InterfazTest {
+public class InterfazIT {
     
-    public InterfazTest() {
+    public InterfazIT() {
     }
-
+    
+   
+    
+    
     /**
-     * Test of getIconImage method, of class Interfaz.
+     * Test de la función getIconImage method, de la clase Interfaz.
+     * 
      */
     @Test
     public void testGetIconImage() {
-        
-        Interfaz ventana1 = new Interfaz();
-        Image esperado = ventana1.getIconImage();
-        Image resultado = ventana1.getIconImage();
-        assertEquals(esperado, resultado);
+        Interfaz interfaz = new Interfaz();
+        Image expResult = interfaz.getIconImage();
+        Image result = interfaz.getIconImage();
+        assertEquals(expResult, result);
         
     }
 
     /**
-     * Test of main method, of class Interfaz.
+     * Test de la función main, de la clase Interfaz.
      */
     @Test
     public void testMain() {
-        Interfaz ventana1 = new Interfaz();
-        
-      
-        
+        String[] args = null;
+        Interfaz.main(args);
+       
     }
     
 }

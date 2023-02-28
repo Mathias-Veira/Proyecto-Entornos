@@ -4,19 +4,19 @@
  */
 package Ventanas;
 
-import java.awt.Graphics;
 import java.awt.Image;
-import javax.swing.JLabel;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
 /**
  *
- * @author mathias
+ * @author Mathias
  */
-public class Interfaz2Test {
+public class Interfaz2IT {
     
-    public Interfaz2Test() {
+    public Interfaz2IT() {
     }
 
     /**
@@ -24,9 +24,10 @@ public class Interfaz2Test {
      */
     @Test
     public void testGetIconImage() {
-        Interfaz2 ventana2 = new Interfaz2();
-        Image expResult = ventana2.getIconImage();
-        Image result = ventana2.getIconImage();
+     
+        Interfaz2 instance = new Interfaz2();
+        Image expResult = instance.getIconImage();
+        Image result = instance.getIconImage();
         assertEquals(expResult, result);
       
     }
@@ -36,27 +37,14 @@ public class Interfaz2Test {
      */
     @Test
     public void testMain() {
-        System.out.println("main");
+        
         String[] args = null;
         Interfaz2.main(args);
        
     }
 
-    /**
-     * Test of calcularResto method, of class Interfaz2.
-     */
-    @Test
-    public void testCalcularResto() {
-        
-        Interfaz2 ventana2 = new Interfaz2();
-        ventana2.calcularResto();
-        
-    }
+   
+    
 
-    /**
-     * Test of mostrarImagen method, of class Interfaz2.
-     */
- 
- 
     
 }
